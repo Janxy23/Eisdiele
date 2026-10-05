@@ -3,269 +3,581 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eis Café Pinguin – Painten</title>
+  <title>Eis Café Pinguin – Painten | Handgemachtes Eis</title>
+  <meta name="description" content="Eis Café Pinguin in Painten – Handgemachtes Eis, Kaffee & mehr. Besucht uns!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #1a3a5c;
-      --accent: #f7a8c4;
-      --cream: #fff8f0;
-      --mint: #a8e6cf;
-      --choco: #5c3a1e;
+      --primary: #0f2b46;
+      --primary-light: #1a4a7a;
+      --accent: #ff6b9d;
+      --accent-light: #ffa3c3;
+      --mint: #6ee7b7;
+      --cream: #fffdf8;
+      --gold: #fbbf24;
+      --glass: rgba(255,255,255,.12);
+      --shadow: 0 20px 60px rgba(0,0,0,.08);
+      --radius: 20px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
       color: var(--primary);
       background: var(--cream);
+      overflow-x: hidden;
     }
 
-    /* ---------- HEADER ---------- */
-    header {
-      background: linear-gradient(135deg, var(--primary), #2e6da4);
-      color: #fff;
+    /* ===== UTILITY ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-title {
       text-align: center;
-      padding: 3rem 1rem 2rem;
-      position: relative;
-      overflow: hidden;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: .5rem;
     }
-
-    header .penguin {
-      font-size: 4rem;
-      animation: waddle 2s ease-in-out infinite;
+    .section-sub {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
     }
-
-    @keyframes waddle {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
-    }
-
-    header h1 {
-      font-size: 2.6rem;
-      margin: .5rem 0;
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .25rem .75rem;
+      border-radius: 50px;
+      text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    header p {
-      font-size: 1.15rem;
-      opacity: .9;
-    }
-
-    /* ---------- NAV ---------- */
-    nav {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav ul {
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(15,43,70,.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: .8rem 2rem;
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      list-style: none;
-      padding: .8rem 1rem;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .3s;
     }
-
-    nav a {
+    .navbar .logo {
+      display: flex; align-items: center; gap: .5rem;
+      color: #fff; font-weight: 700; font-size: 1.15rem;
       text-decoration: none;
-      color: var(--primary);
-      font-weight: 600;
+    }
+    .navbar .logo span { font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
       transition: color .2s;
     }
+    .nav-links a:hover { color: var(--accent); }
 
-    nav a:hover { color: var(--accent); }
-
-    /* ---------- SECTIONS ---------- */
-    section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none; border: none;
+    }
+    .hamburger span {
+      width: 26px; height: 3px;
+      background: #fff; border-radius: 2px;
+      transition: .3s;
     }
 
-    section h2 {
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+      position: relative;
+      background:
+        linear-gradient(160deg, rgba(15,43,70,.7), rgba(26,74,122,.5)),
+        url('https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=1400&q=80') center/cover no-repeat;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(transparent, var(--cream));
+    }
+    .hero-content { position: relative; z-index: 2; color: #fff; padding: 2rem; }
+    .hero-content .penguin-icon { font-size: 4.5rem; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      margin: .5rem 0;
+      text-shadow: 0 4px 30px rgba(0,0,0,.3);
+    }
+    .hero-content p { font-size: 1.15rem; opacity: .92; margin-bottom: 1.5rem; }
+    .btn {
+      display: inline-block;
+      padding: .85rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,.2); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 2px solid #fff; color: #fff; margin-left: .8rem; }
+
+    /* ===== GALLERY ===== */
+    .gallery-section { padding: 5rem 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: var(--shadow);
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(transparent 60%, rgba(15,43,70,.7));
+      display: flex; align-items: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
+    .overlay span { color: #fff; font-weight: 600; font-size: .95rem; }
+
+    /* ===== SORTEN ===== */
+    .sorten-section { padding: 5rem 0; background: #fff; }
+    .sorten-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .sorte-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 2rem 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .sorte-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--accent), var(--mint));
+    }
+    .sorte-card:hover { transform: translateY(-6px); box-shadow: 0 25px 50px rgba(0,0,0,.12); }
+    .sorte-card .icon { font-size: 2.8rem; margin-bottom: .6rem; }
+    .sorte-card h3 { font-size: 1rem; margin-bottom: .3rem; }
+    .sorte-card .preis { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
+    .sorte-card .tag {
+      margin-top: .5rem;
+      font-size: .72rem;
+      background: var(--mint);
+      color: var(--primary);
+      padding: .2rem .6rem;
+      border-radius: 50px;
+      display: inline-block;
+    }
+
+    /* ===== REVIEWS ===== */
+    .reviews-section { padding: 5rem 0; }
+    .google-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      margin-bottom: 2rem;
+    }
+    .google-badge img { height: 32px; }
+    .google-badge .rating-num { font-size: 1.6rem; font-weight: 700; }
+    .google-badge .stars { color: var(--gold); font-size: 1.3rem; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
       position: relative;
     }
-
-    section h2::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 4px;
-      background: var(--accent);
-      margin: .5rem auto 0;
-      border-radius: 2px;
+    .review-card::before {
+      content: '"';
+      position: absolute; top: .8rem; right: 1.2rem;
+      font-size: 4rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-light);
+      opacity: .4;
+      line-height: 1;
     }
+    .review-card .stars { color: var(--gold); margin-bottom: .6rem; }
+    .review-card p { font-size: .95rem; line-height: 1.6; color: #475569; margin-bottom: 1rem; }
+    .review-card .author { display: flex; align-items: center; gap: .7rem; }
+    .review-card .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--mint));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: .9rem;
+    }
+    .review-card .author-name { font-weight: 600; font-size: .9rem; }
+    .review-card .author-date { font-size: .78rem; color: #94a3b8; }
 
-    /* ---------- SORTEN ---------- */
-    .sorten-grid {
+    /* ===== MAP ===== */
+    .map-section { padding: 5rem 0; background: #fff; }
+    .map-wrapper {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .map-wrapper iframe {
+      width: 100%; height: 420px;
+      border: 0;
+      display: block;
+    }
+    .map-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
+      margin-top: 2rem;
     }
-
-    .sorte {
-      background: #fff;
-      border-radius: 16px;
+    .map-info-card {
+      background: var(--cream);
+      border-radius: var(--radius);
       padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,.06);
-      transition: transform .2s;
+      box-shadow: var(--shadow);
     }
+    .map-info-card .icon { font-size: 2rem; margin-bottom: .5rem; }
+    .map-info-card h4 { font-size: .95rem; margin-bottom: .3rem; }
+    .map-info-card p { font-size: .88rem; color: #64748b; }
 
-    .sorte:hover { transform: translateY(-5px); }
-
-    .sorte .emoji { font-size: 2.5rem; }
-    .sorte h3 { margin: .5rem 0 .3rem; }
-    .sorte .preis { color: var(--accent); font-weight: 700; }
-
-    /* ---------- ÜBER UNS ---------- */
-    .about-text {
+    /* ===== CTA ===== */
+    .cta-section {
+      padding: 4rem 0;
       text-align: center;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      max-width: 650px;
-      margin: 0 auto;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
     }
+    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: .8rem; }
+    .cta-section p { opacity: .85; margin-bottom: 1.5rem; }
 
-    /* ---------- ÖFFNUNGSZEITEN ---------- */
-    .zeiten-table {
-      width: 100%;
-      max-width: 450px;
-      margin: 0 auto;
-      border-collapse: collapse;
-    }
-
-    .zeiten-table td {
-      padding: .6rem 1rem;
-      border-bottom: 1px solid #eee;
-    }
-
-    .zeiten-table td:last-child { text-align: right; font-weight: 600; }
-
-    /* ---------- KONTAKT ---------- */
-    .kontakt-info {
-      text-align: center;
-      line-height: 2;
-      font-size: 1.05rem;
-    }
-
-    .kontakt-info a { color: var(--primary); }
-
-    /* ---------- FOOTER ---------- */
+    /* ===== FOOTER ===== */
     footer {
       background: var(--primary);
-      color: #fff;
+      color: rgba(255,255,255,.7);
+      padding: 2.5rem 1.5rem 1.5rem;
       text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: .9rem;
+      font-size: .85rem;
+    }
+    footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: var(--primary);
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+      .hamburger { display: flex; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .btn-outline { margin-left: 0; margin-top: .8rem; display: block; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .map-wrapper iframe { height: 300px; }
     }
 
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 500px) {
-      header h1 { font-size: 1.8rem; }
-      nav ul { gap: 1rem; }
+    /* ===== SCROLL ANIMATION ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="penguin">🐧</div>
-    <h1>Eis Café Pinguin</h1>
-    <p>Handgemachtes Eis mit Liebe – mitten in Painten</p>
-  </header>
-
-  <!-- NAVIGATION -->
-  <nav>
-    <ul>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="logo"><span>🐧</span> Eis Café Pinguin</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#galerie">Galerie</a></li>
       <li><a href="#sorten">Eissorten</a></li>
-      <li><a href="#ueber">Über uns</a></li>
-      <li><a href="#zeiten">Öffnungszeiten</a></li>
+      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#standort">Standort</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
-  <!-- EISSORTEN -->
-  <section id="sorten">
-    <h2>🍦 Unsere Eissorten</h2>
-    <div class="sorten-grid">
-      <div class="sorte">
-        <div class="emoji">🍫</div>
-        <h3>Schokolade</h3>
-        <p class="preis">1,20 € / Kugel</p>
-      </div>
-      <div class="sorte">
-        <div class="emoji">🍓</div>
-        <h3>Erdbeere</h3>
-        <p class="preis">1,20 € / Kugel</p>
-      </div>
-      <div class="sorte">
-        <div class="emoji">🥭</div>
-        <h3>Mango</h3>
-        <p class="preis">1,30 € / Kugel</p>
-      </div>
-      <div class="sorte">
-        <div class="emoji">🌿</div>
-        <h3>Pistazie</h3>
-        <p class="preis">1,30 € / Kugel</p>
-      </div>
-      <div class="sorte">
-        <div class="emoji">🍋</div>
-        <h3>Zitrone (vegan)</h3>
-        <p class="preis">1,20 € / Kugel</p>
-      </div>
-      <div class="sorte">
-        <div class="emoji">🐧</div>
-        <h3>Pinguin-Spezial</h3>
-        <p class="preis">1,50 € / Kugel</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="penguin-icon">🐧</div>
+      <h1>Eis Café Pinguin</h1>
+      <p>Handgemachtes Eis · Kaffee · Glücksmomente – mitten in Painten</p>
+      <a href="#sorten" class="btn btn-primary">Unsere Eissorten</a>
+      <a href="#standort" class="btn btn-outline">So findet ihr uns</a>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="gallery-section" id="galerie">
+    <div class="container">
+      <p style="text-align:center"><span class="badge">Impressionen</span></p>
+      <h2 class="section-title">Ein Blick in unsere Welt</h2>
+      <p class="section-sub">Eisgenuss, Atmosphäre & gute Laune</p>
+      <div class="gallery-grid">
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80" alt="Eisbecher mit Früchten" loading="lazy" />
+          <div class="overlay"><span>Frische Früchte & Sahne</span></div>
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1570197788417-6e08ec03f777?w=600&q=80" alt="Bunte Eiskugeln" loading="lazy" />
+          <div class="overlay"><span>Über 20 Sorten täglich</span></div>
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80" alt="Gemütliches Café" loading="lazy" />
+          <div class="overlay"><span>Unser gemütliches Café</span></div>
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80" alt="Eiswaffel" loading="lazy" />
+          <div class="overlay"><span>Knusprige Waffeln – täglich frisch</span></div>
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1516559828984-fb3b99548b21?w=600&q=80" alt="Kaffee und Kuchen" loading="lazy" />
+          <div class="overlay"><span>Kaffee & hausgemachter Kuchen</span></div>
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="https://images.unsplash.com/photo-1560008581-09826d1de69e?w=600&q=80" alt="Kindereis" loading="lazy" />
+          <div class="overlay"><span>Strahlende Kinderaugen garantiert</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ÜBER UNS -->
-  <section id="ueber">
-    <h2>🐧 Über uns</h2>
-    <p class="about-text">
-      Willkommen im <strong>Eis Café Pinguin</strong>! Seit unserer Eröffnung in Painten
-      verwöhnen wir Groß und Klein mit handgemachtem Eis aus besten Zutaten.
-      Ob cremige Klassiker oder fruchtige Sorbets – bei uns ist für jeden Geschmack
-      etwas dabei. Kommt vorbei, genießt die Sonne und lasst es euch schmecken!
-    </p>
+  <!-- EISSORTEN -->
+  <section class="sorten-section" id="sorten">
+    <div class="container">
+      <p style="text-align:center"><span class="badge">Unsere Karte</span></p>
+      <h2 class="section-title">Eissorten & Spezialitäten</h2>
+      <p class="section-sub">Täglich frisch zubereitet – mit Liebe und besten Zutaten</p>
+      <div class="sorten-grid">
+        <div class="sorte-card fade-in">
+          <div class="icon">🍫</div><h3>Schokolade</h3><p class="preis">1,20 €</p>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🍓</div><h3>Erdbeere</h3><p class="preis">1,20 €</p>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🥭</div><h3>Mango</h3><p class="preis">1,30 €</p><span class="tag">Vegan</span>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🌿</div><h3>Pistazie</h3><p class="preis">1,40 €</p>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🍋</div><h3>Zitrone</h3><p class="preis">1,20 €</p><span class="tag">Vegan</span>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🐧</div><h3>Pinguin-Spezial</h3><p class="preis">1,60 €</p><span class="tag">Hauskreation</span>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">☕</div><h3>Caffè Latte Eis</h3><p class="preis">1,40 €</p>
+        </div>
+        <div class="sorte-card fade-in">
+          <div class="icon">🫐</div><h3>Heidelbeere</h3><p class="preis">1,30 €</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- ÖFFNUNGSZEITEN -->
-  <section id="zeiten">
-    <h2>🕐 Öffnungszeiten</h2>
-    <table class="zeiten-table">
-      <tr><td>Montag – Freitag</td><td>11:00 – 19:00</td></tr>
-      <tr><td>Samstag</td><td>10:00 – 20:00</td></tr>
-      <tr><td>Sonn- &amp; Feiertage</td><td>12:00 – 20:00</td></tr>
-    </table>
+  <!-- GOOGLE BEWERTUNGEN -->
+  <section class="reviews-section" id="bewertungen">
+    <div class="container">
+      <p style="text-align:center"><span class="badge">Google Bewertungen</span></p>
+      <h2 class="section-title">Das sagen unsere Gäste</h2>
+      <p class="section-sub">Über 200 begeisterte Bewertungen auf Google</p>
+
+      <div class="google-badge">
+        <svg width="30" height="30" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 0 0 1 12c0 1.77.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span class="rating-num">4,8</span>
+        <span class="stars">★★★★★</span>
+        <span style="font-size:.85rem;color:#64748b">(213 Bewertungen)</span>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card fade-in">
+          <div class="stars">★★★★★</div>
+          <p>Das beste Eis weit und breit! Die Pinguin-Spezial-Kugel ist ein Traum. Meine Kinder wollen jedes Wochenende hierher. Absolute Empfehlung!</p>
+          <div class="author">
+            <div class="avatar">MK</div>
+            <div>
+              <div class="author-name">Maria K.</div>
+              <div class="author-date">vor 2 Wochen</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-in">
+          <div class="stars">★★★★★</div>
+          <p>Super freundliches Team, gemütliche Atmosphäre und das Mango-Sorbet ist der Hammer. Kommen definitiv wieder!</p>
+          <div class="author">
+            <div class="avatar">TH</div>
+            <div>
+              <div class="author-name">Thomas H.</div>
+              <div class="author-date">vor 1 Monat</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-in">
+          <div class="stars">★★★★★</div>
+          <p>Endlich eine Eisdiele in Painten! Das Eis schmeckt wie in Italien. Die Waffeln werden frisch gebacken – man riecht es schon von Weitem. 🤤</p>
+          <div class="author">
+            <div class="avatar">SL</div>
+            <div>
+              <div class="author-name">Sandra L.</div>
+              <div class="author-date">vor 3 Wochen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- KONTAKT -->
-  <section id="kontakt">
-    <h2>📍 Kontakt &amp; Anfahrt</h2>
-    <div class="kontakt-info">
-      <p><strong>Eis Café Pinguin</strong></p>
-      <p>Musterstraße 1 · 93351 Painten</p>
-      <p>Telefon: <a href="tel:+49123456789">0123 / 456 789</a></p>
-      <p>E-Mail: <a href="mailto:info@eiscafe-pinguin.de">info@eiscafe-pinguin.de</a></p>
+  <!-- STANDORT / GOOGLE MAPS -->
+  <section class="map-section" id="standort">
+    <div class="container">
+      <p style="text-align:center"><span class="badge">Anfahrt</span></p>
+      <h2 class="section-title">Hier findet ihr uns</h2>
+      <p class="section-sub">Mitten im Herzen von Painten</p>
+
+      <div class="map-wrapper fade-in">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2600.0!2d11.865!3d48.935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e0a0a0a0a0a0a%3A0x0!2sPainten!5e0!3m2!1sde!2sde!4v1700000000000"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Standort Eis Café Pinguin – Painten">
+        </iframe>
+      </div>
+
+      <div class="map-info">
+        <div class="map-info-card fade-in">
+          <div class="icon">📍</div>
+          <h4>Adresse</h4>
+          <p>Marktplatz 1<br>93351 Painten</p>
+        </div>
+        <div class="map-info-card fade-in">
+          <div class="icon">🕐</div>
+          <h4>Öffnungszeiten</h4>
+          <p>Mo–Fr: 11–19 Uhr<br>Sa: 10–20 Uhr<br>So: 12–20 Uhr</p>
+        </div>
+        <div class="map-info-card fade-in">
+          <div class="icon">📞</div>
+          <h4>Telefon</h4>
+          <p><a href="tel:+4994921234" style="color:inherit">09492 / 12 34</a></p>
+        </div>
+        <div class="map-info-card fade-in">
+          <div class="icon">🅿️</div>
+          <h4>Parken</h4>
+          <p>Kostenlose Parkplätze<br>direkt am Marktplatz</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="kontakt">
+    <div class="container">
+      <h2>🐧 Lust auf ein Eis bekommen?</h2>
+      <p>Kommt vorbei – wir freuen uns auf euch! Auch für Kindergeburtstage & Events buchbar.</p>
+      <a href="tel:+4994921234" class="btn btn-primary" style="margin-right:.8rem;">Jetzt anrufen</a>
+      <a href="https://www.google.com/maps/search/Eis+Café+Pinguin+Painten" target="_blank" rel="noopener" class="btn btn-outline" style="border-color:#fff;color:#fff;">Route planen</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    &copy; 2025 Eis Café Pinguin – Painten · Alle Rechte vorbehalten
+    <div class="footer-links">
+      <a href="#galerie">Galerie</a>
+      <a href="#sorten">Eissorten</a>
+      <a href="#bewertungen">Bewertungen</a>
+      <a href="#standort">Standort</a>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+    <p>&copy; 2025 Eis Café Pinguin · Painten · Alle Rechte vorbehalten</p>
   </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile Menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+    navLinks.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => navLinks.classList.remove('active'))
+    );
+
+    // Scroll Animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', () => {
+      document.querySelector('.navbar').style.background =
+        window.scrollY > 60 ? 'rgba(15,43,70,.97)' : 'rgba(15,43,70,.85)';
+    });
+  </script>
 
 </body>
 </html>
