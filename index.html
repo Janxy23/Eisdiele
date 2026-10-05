@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eis Café Pinguin – Painten</title>
+  <style>
+    :root {
+      --primary: #1a3a5c;
+      --accent: #f7a8c4;
+      --cream: #fff8f0;
+      --mint: #a8e6cf;
+      --choco: #5c3a1e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--primary);
+      background: var(--cream);
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      background: linear-gradient(135deg, var(--primary), #2e6da4);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header .penguin {
+      font-size: 4rem;
+      animation: waddle 2s ease-in-out infinite;
+    }
+
+    @keyframes waddle {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    header h1 {
+      font-size: 2.6rem;
+      margin: .5rem 0;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      opacity: .9;
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      padding: .8rem 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin: .5rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ---------- SORTEN ---------- */
+    .sorten-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sorte {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,.06);
+      transition: transform .2s;
+    }
+
+    .sorte:hover { transform: translateY(-5px); }
+
+    .sorte .emoji { font-size: 2.5rem; }
+    .sorte h3 { margin: .5rem 0 .3rem; }
+    .sorte .preis { color: var(--accent); font-weight: 700; }
+
+    /* ---------- ÜBER UNS ---------- */
+    .about-text {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* ---------- ÖFFNUNGSZEITEN ---------- */
+    .zeiten-table {
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    .zeiten-table td {
+      padding: .6rem 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .zeiten-table td:last-child { text-align: right; font-weight: 600; }
+
+    /* ---------- KONTAKT ---------- */
+    .kontakt-info {
+      text-align: center;
+      line-height: 2;
+      font-size: 1.05rem;
+    }
+
+    .kontakt-info a { color: var(--primary); }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: .9rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 500px) {
+      header h1 { font-size: 1.8rem; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="penguin">🐧</div>
+    <h1>Eis Café Pinguin</h1>
+    <p>Handgemachtes Eis mit Liebe – mitten in Painten</p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <ul>
+      <li><a href="#sorten">Eissorten</a></li>
+      <li><a href="#ueber">Über uns</a></li>
+      <li><a href="#zeiten">Öffnungszeiten</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- EISSORTEN -->
+  <section id="sorten">
+    <h2>🍦 Unsere Eissorten</h2>
+    <div class="sorten-grid">
+      <div class="sorte">
+        <div class="emoji">🍫</div>
+        <h3>Schokolade</h3>
+        <p class="preis">1,20 € / Kugel</p>
+      </div>
+      <div class="sorte">
+        <div class="emoji">🍓</div>
+        <h3>Erdbeere</h3>
+        <p class="preis">1,20 € / Kugel</p>
+      </div>
+      <div class="sorte">
+        <div class="emoji">🥭</div>
+        <h3>Mango</h3>
+        <p class="preis">1,30 € / Kugel</p>
+      </div>
+      <div class="sorte">
+        <div class="emoji">🌿</div>
+        <h3>Pistazie</h3>
+        <p class="preis">1,30 € / Kugel</p>
+      </div>
+      <div class="sorte">
+        <div class="emoji">🍋</div>
+        <h3>Zitrone (vegan)</h3>
+        <p class="preis">1,20 € / Kugel</p>
+      </div>
+      <div class="sorte">
+        <div class="emoji">🐧</div>
+        <h3>Pinguin-Spezial</h3>
+        <p class="preis">1,50 € / Kugel</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="ueber">
+    <h2>🐧 Über uns</h2>
+    <p class="about-text">
+      Willkommen im <strong>Eis Café Pinguin</strong>! Seit unserer Eröffnung in Painten
+      verwöhnen wir Groß und Klein mit handgemachtem Eis aus besten Zutaten.
+      Ob cremige Klassiker oder fruchtige Sorbets – bei uns ist für jeden Geschmack
+      etwas dabei. Kommt vorbei, genießt die Sonne und lasst es euch schmecken!
+    </p>
+  </section>
+
+  <!-- ÖFFNUNGSZEITEN -->
+  <section id="zeiten">
+    <h2>🕐 Öffnungszeiten</h2>
+    <table class="zeiten-table">
+      <tr><td>Montag – Freitag</td><td>11:00 – 19:00</td></tr>
+      <tr><td>Samstag</td><td>10:00 – 20:00</td></tr>
+      <tr><td>Sonn- &amp; Feiertage</td><td>12:00 – 20:00</td></tr>
+    </table>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <h2>📍 Kontakt &amp; Anfahrt</h2>
+    <div class="kontakt-info">
+      <p><strong>Eis Café Pinguin</strong></p>
+      <p>Musterstraße 1 · 93351 Painten</p>
+      <p>Telefon: <a href="tel:+49123456789">0123 / 456 789</a></p>
+      <p>E-Mail: <a href="mailto:info@eiscafe-pinguin.de">info@eiscafe-pinguin.de</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Eis Café Pinguin – Painten · Alle Rechte vorbehalten
+  </footer>
+
+</body>
+</html>
